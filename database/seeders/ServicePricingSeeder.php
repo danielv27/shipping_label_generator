@@ -12,7 +12,14 @@ class ServicePricingSeeder extends Seeder
     public function run(): void
     {
         $pricingData = [
-            'DHL' => [
+            'PostNL Parcel' => [
+                'domestic' => [
+                    ['min_weight' => 0.00, 'max_weight' => 2.00, 'price' => 2.99],
+                    ['min_weight' => 2.01, 'max_weight' => 10.00, 'price' => 6.99],
+                    ['min_weight' => 10.01, 'max_weight' => 20.00, 'price' => 14.99],
+                ],
+            ],
+            'DHL Express' => [
                 'domestic' => [
                     ['min_weight' => 0.00, 'max_weight' => 1.00, 'price' => 3.99],
                     ['min_weight' => 1.01, 'max_weight' => 10.00, 'price' => 8.99],
@@ -22,13 +29,6 @@ class ServicePricingSeeder extends Seeder
                     ['min_weight' => 0.00, 'max_weight' => 1.00, 'price' => 10.99],
                     ['min_weight' => 1.01, 'max_weight' => 10.00, 'price' => 30.99],
                     ['min_weight' => 10.01, 'max_weight' => 999.00, 'price' => 53.99],
-                ],
-            ],
-            'PostNL' => [
-                'domestic' => [
-                    ['min_weight' => 0.00, 'max_weight' => 2.00, 'price' => 2.99],
-                    ['min_weight' => 2.01, 'max_weight' => 10.00, 'price' => 6.99],
-                    ['min_weight' => 10.01, 'max_weight' => 20.00, 'price' => 14.99],
                 ],
             ],
         ];

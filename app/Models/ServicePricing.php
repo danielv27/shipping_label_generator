@@ -9,9 +9,6 @@ class ServicePricing extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'carrier_service_id',
         'min_weight',
@@ -19,10 +16,7 @@ class ServicePricing extends Model
         'price',
     ];
 
-    /**
-     * Relationship to CarrierService.
-     */
-    public function carrierService()
+    public function service()
     {
         return $this->belongsTo(CarrierService::class);
     }

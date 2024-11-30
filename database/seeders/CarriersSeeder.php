@@ -14,7 +14,7 @@ class CarriersSeeder extends Seeder
      */
     public function run(): void
     {
-        Carrier::firstOrCreate(['name' => 'DHL']);
-        Carrier::firstOrCreate(['name' => 'PostNL']);
+        Carrier::firstOrCreate(['name' => 'PostNL Parcel']);
+        Carrier::firstOrCreate(['name' => 'DHL Express']);   
     }
 }

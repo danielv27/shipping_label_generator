@@ -9,7 +9,7 @@ class CarrierServicesSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('carrier_services')->insert([
+        DB::table('carriers')->insert([
             [
                 'name' => 'PostNL Parcel',
                 'scope' => 'domestic',

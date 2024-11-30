@@ -6,20 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
     public function up()
     {
         Schema::create('carrier_services', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('scope'); // Either the name of the country or international
-            $table->decimal('price_up_to_1kg', 8, 2);
-            $table->decimal('price_up_to_10kg', 8, 2);
-            $table->decimal('price_above_10kg', 8, 2);
+            $table->foreignId('carrier_id')->constrained('carriers')->onDelete('cascade');
+            $table->string('scope');
             $table->timestamps();
+            $table->unique(['carrier_id', 'scope']);
         });
+        
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('carrier_services');
     }

@@ -11,4 +11,9 @@ class Carrier extends Model
     use HasFactory;
     protected $fillable = ['name'];
 
+    public function services()
+    {
+        return $this->hasMany(CarrierService::class);
+    }
+
 }

@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(CarriersSeeder::class);
+        $this->call(CarrierServicesSeeder::class);
+        $this->call(ServicePricingSeeder::class);
     }
 }

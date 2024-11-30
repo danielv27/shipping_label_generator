@@ -9,7 +9,7 @@ class CarrierService extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['carrier_id', 'scope'];
+    protected $fillable = ['carrier_id', 'name', 'scope'];
 
     /**
      * Relationship to Carrier.

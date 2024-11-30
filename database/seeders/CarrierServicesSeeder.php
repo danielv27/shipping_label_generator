@@ -10,12 +10,11 @@ class CarrierServicesSeeder extends Seeder
 {
     public function run()
     {
-        $postNl = Carrier::where('name', 'PostNL Parcel')->first();
-        $dhl = Carrier::where('name', 'DHL Express')->first();
+        $postNl = Carrier::where('name', 'PostNL')->first();
+        $dhl = Carrier::where('name', 'DHL')->first();
        
-        CarrierService::firstOrCreate(['carrier_id' => $postNl->id, 'scope' => 'domestic']);
-        CarrierService::firstOrCreate(['carrier_id' => $dhl->id, 'scope' => 'domestic']);
-        CarrierService::firstOrCreate(['carrier_id' => $dhl->id, 'scope' => 'international']);
-        
+        CarrierService::firstOrCreate(['carrier_id' => $postNl->id, 'name' => 'PostNL Parcel', 'scope' => 'domestic']);
+        CarrierService::firstOrCreate(['carrier_id' => $dhl->id, 'name' => 'DHL Express', 'scope' => 'domestic']);
+        CarrierService::firstOrCreate(['carrier_id' => $dhl->id, 'name' => 'DHL Express', 'scope' => 'international']);
     }
 }

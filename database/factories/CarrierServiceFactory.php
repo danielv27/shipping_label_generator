@@ -16,8 +16,6 @@ class CarrierServiceFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
-        ];
+        return ['name' => fake()->company()];
     }
 }

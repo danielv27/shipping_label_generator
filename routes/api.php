@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\CarrierServiceController;
-use App\Http\Controllers\ServicePricingController;
-use App\Http\Controllers\ShippingController;
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 Route::get('carrier-services', [CarrierServiceController::class, 'index'])->name('carrier-services.index');

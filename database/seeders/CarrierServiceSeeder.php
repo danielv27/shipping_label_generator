@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\CarrierService;
 
-class CarrierServicesSeeder extends Seeder
+class CarrierServiceSeeder extends Seeder
 {
     public function run()
     {

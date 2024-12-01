@@ -10,7 +10,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(CarrierServicesSeeder::class);
-        $this->call(ServicePricingSeeder::class);
+        $this->call([
+            CarrierServiceSeeder::class,
+            ServicePricingSeeder::class
+        ]);
     }
 }

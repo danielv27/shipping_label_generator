@@ -41,7 +41,6 @@ class ServicePricingSeeder extends Seeder
             }
 
             foreach ($services as $scope => $pricingRules) {
-
                 foreach ($pricingRules as $rule) {
                     ServicePricing::firstOrCreate(
                         [

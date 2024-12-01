@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('service_pricings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('carrier_service_id')->constrained('carrier_services')->onDelete('cascade');
+            $table->string('scope');
             $table->decimal('min_weight', 8, 2);
             $table->decimal('max_weight', 8, 2);
             $table->decimal('price', 8, 2);

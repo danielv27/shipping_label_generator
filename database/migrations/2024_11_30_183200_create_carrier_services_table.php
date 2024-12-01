@@ -11,11 +11,8 @@ return new class extends Migration
     {
         Schema::create('carrier_services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('carrier_id')->constrained('carriers')->onDelete('cascade');
-            $table->string('name');
-            $table->string('scope');
+            $table->string('name')->unique();
             $table->timestamps();
-            $table->unique(['carrier_id', 'scope']);
         });
         
     }

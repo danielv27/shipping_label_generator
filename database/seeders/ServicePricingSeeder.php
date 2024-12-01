@@ -12,14 +12,14 @@ class ServicePricingSeeder extends Seeder
     public function run(): void
     {
         $pricingData = [
-            'PostNL' => [
+            'PostNL Parcel' => [
                 'domestic' => [
                     ['min_weight' => 0.00, 'max_weight' => 2.00, 'price' => 2.99],
                     ['min_weight' => 2.01, 'max_weight' => 10.00, 'price' => 6.99],
                     ['min_weight' => 10.01, 'max_weight' => 20.00, 'price' => 14.99],
                 ],
             ],
-            'DHL' => [
+            'DHL Express' => [
                 'domestic' => [
                     ['min_weight' => 0.00, 'max_weight' => 1.00, 'price' => 3.99],
                     ['min_weight' => 1.01, 'max_weight' => 10.00, 'price' => 8.99],
@@ -33,23 +33,20 @@ class ServicePricingSeeder extends Seeder
             ],
         ];
         foreach ($pricingData as $carrierName => $services) {
-            $carrier = Carrier::where('name', $carrierName)->first();
+            $carrierService = CarrierService::where('name', $carrierName)->first();
 
-            if (! $carrier) {
+            if (! $carrierService) {
                 $this->command->warn("Carrier '$carrierName' not found. Skipping.");
                 continue;
             }
 
             foreach ($services as $scope => $pricingRules) {
-                $carrierService = CarrierService::firstOrCreate([
-                    'carrier_id' => $carrier->id,
-                    'scope' => $scope,
-                ]);
 
                 foreach ($pricingRules as $rule) {
                     ServicePricing::firstOrCreate(
                         [
                             'carrier_service_id' => $carrierService->id,
+                            'scope' => $scope,
                             'min_weight' => $rule['min_weight'],
                             'max_weight' => $rule['max_weight'],
                             'price' => $rule['price'],

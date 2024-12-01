@@ -10,7 +10,7 @@ class ShippingController extends Controller
     {
         $validated = $request->validate([
             'weight' => 'required|numeric|min:0.1',
-            'service_id' => 'required|exists:carrier_services,id',
+            'carrier_service_id' => 'required|exists:carrier_services,id',
         ]);
         return response()->json(['message' => 'bla']);
     }

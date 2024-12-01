@@ -12,7 +12,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CarrierServiceSeeder::class,
-            PricingSeeder::class
+            PricingSeeder::class,
+            CountrySeeder::class
         ]);
     }
 }

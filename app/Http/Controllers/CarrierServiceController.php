@@ -9,9 +9,7 @@ class CarrierServiceController extends Controller
 {
     public function index(): JsonResponse
     {
-        $carriers = CarrierService::query()
-            ->select(['id', 'name'])
-            ->get();
+        $carriers = CarrierService::all(['id', 'name']);
         return response()->json($carriers);
     }
 }

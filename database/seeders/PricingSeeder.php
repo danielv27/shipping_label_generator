@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Carrier;
 use App\Models\CarrierService;
-use App\Models\ServicePricing;
+use App\Models\Pricing;
 use Illuminate\Database\Seeder;
 
-class ServicePricingSeeder extends Seeder
+class PricingSeeder extends Seeder
 {
     public function run(): void
     {
@@ -42,7 +41,7 @@ class ServicePricingSeeder extends Seeder
 
             foreach ($services as $scope => $pricingRules) {
                 foreach ($pricingRules as $rule) {
-                    ServicePricing::firstOrCreate(
+                    Pricing::firstOrCreate(
                         [
                             'carrier_service_id' => $carrierService->id,
                             'scope' => $scope,

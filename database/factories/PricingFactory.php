@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 use App\Models\CarrierService;
-use App\Models\ServicePricing;
+use App\Models\Pricing;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ServicePricingFactory extends Factory
+class PricingFactory extends Factory
 {
-    protected $model = ServicePricing::class;
+    protected $model = Pricing::class;
 
     public function definition()
     {

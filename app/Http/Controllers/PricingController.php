@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Models\ServicePricing;
+use App\Models\Pricing;
 
-class ServicePricingController extends Controller
+class PricingController extends Controller
 {
 
     public function show($carrierServiceId): JsonResponse
     {
         // Retrieve pricing entries for the given carrier service ID
-        $pricing = ServicePricing::where('carrier_service_id', $carrierServiceId)->get();
+        $pricing = Pricing::where('carrier_service_id', $carrierServiceId)->get();
 
         // Check if pricing exists
         if ($pricing->isEmpty()) {
@@ -34,7 +34,7 @@ class ServicePricingController extends Controller
     
         $scope = $this->determineScope($validated['sender_country'], $validated['receiver_country']);
     
-        $pricing = ServicePricing::where('carrier_service_id', $validated['carrier_service_id'])
+        $pricing = Pricing::where('carrier_service_id', $validated['carrier_service_id'])
             ->where('scope', $scope)
             ->where('min_weight', '<=', $validated['weight'])
             ->where('max_weight', '>=', $validated['weight'])

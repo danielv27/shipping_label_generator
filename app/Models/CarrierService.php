@@ -13,6 +13,6 @@ class CarrierService extends Model
 
     public function pricing()
     {
-        return $this->hasMany(ServicePricing::class);
+        return $this->hasMany(Pricing::class);
     }
 }

@@ -20,7 +20,7 @@ class PricingController extends Controller
         }
 
         // Return the pricing data
-        return response()->json($pricing, 200);
+        return response()->json($pricing);
     }
 
     public function calculate(Request $request)
@@ -44,10 +44,10 @@ class PricingController extends Controller
             return response()->json(['error' => 'No pricing available for the provided criteria.'], 404);
         }
     
-        return response()->json(['price' => $pricing->price], 200);
+        return response()->json(['price' => $pricing->price]);
     }
     
-    private function determineScope(string $senderCountry, string $receiverCountry): string
+    public function determineScope(string $senderCountry, string $receiverCountry): string
     {
         $domesticCountry = 'Netherlands';
         if (strtolower($senderCountry) === strtolower($domesticCountry) &&

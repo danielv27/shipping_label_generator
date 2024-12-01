@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\CarrierService;
+use Illuminate\Http\JsonResponse;
 
 class CarrierServiceController extends Controller
 {
-    //
+    public function index(): JsonResponse
+    {
+        $carriers = CarrierService::query()
+            ->select(['id', 'name'])
+            ->get();
+        return response()->json($carriers);
+    }
 }

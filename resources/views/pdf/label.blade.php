@@ -8,7 +8,7 @@
 <body>
     <div class="label">
         <div class="section">
-            <h3>{{ $carrier_service_name }}</h3>
+            <h1>{{ $carrier_service_name }}</h1>
             <p>{{ $recipient['name'] }}</p>
             <p>{{ $recipient['street'] }}</p>
             <p>{{ $recipient['postal_code'] }}, {{ $recipient['city'] }}</p>
@@ -51,11 +51,9 @@
             margin-bottom: 15px;
         }
 
-        .section h3 {
-            margin: 0;
-            font-size: 14px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
+        .section h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
         }
 
         .section p {
@@ -71,8 +69,7 @@
 
         .barcode img {
             display: block;
-            margin: 10px auto;
-            width: 200px;
+            width: 240px;
             height: auto;
         }
     </style>

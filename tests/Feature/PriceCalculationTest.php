@@ -143,3 +143,39 @@ test('calculates correct prices for DHL Express (international)', function () {
         ->assertJson(['price' => 53.99]);
 });
 
+
+test('calculates correct prices for very large weights', function () {
+
+    $this->seed();
+    $postNlId = CarrierService::where('name', 'PostNL Parcel')->first()->id;
+    $dhlId = CarrierService::where('name', 'DHL Express')->first()->id;
+
+    $this->postJson(route('pricing.calculate'), [
+            'carrier_service_id' => $postNlId,
+            'sender_country_code' => 'NL',
+            'recipient_country_code' => 'NL',
+            'weight' => 999999,
+        ])
+        ->assertStatus(200)
+        ->assertJson(['price' => 10.99]);
+
+    $this->postJson(route('pricing.calculate'), [
+        'carrier_service_id' => $dhlId,
+        'sender_country_code' => 'NL',
+        'recipient_country_code' => 'NL',
+        'weight' => 999999,
+        ])
+        ->assertStatus(200)
+        ->assertJson(['price' => 32.99]);
+
+    $this->postJson(route('pricing.calculate'), [
+        'carrier_service_id' => $dhlId,
+        'sender_country_code' => 'NL',
+        'recipient_country_code' => 'DE',
+        'weight' => 999999,
+        ])
+        ->assertStatus(200)
+        ->assertJson(['price' => 53.99]);
+
+
+});

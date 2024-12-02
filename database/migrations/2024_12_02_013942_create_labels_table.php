@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('labels', function (Blueprint $table) {
-            $table->id(); 
-            $table->string('barcode')->unique(); 
+            $table->id();  
             $table->string('recipient_name'); 
             $table->string('recipient_street'); 
             $table->string('recipient_postal_code'); 

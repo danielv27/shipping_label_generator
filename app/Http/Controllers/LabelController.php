@@ -22,10 +22,9 @@ class LabelController extends Controller
             'carrier_service_id' => 'required|exists:carrier_services,id',
         ]);
 
-        $barcode = $this->generateBarcode();
+        
 
         $label = Label::create([
-            'barcode' => $barcode,
             'recipient_name' => $validated['recipient_name'],
             'recipient_street' => $validated['recipient_street'],
             'recipient_postal_code' => $validated['recipient_postal_code'],
@@ -36,6 +35,8 @@ class LabelController extends Controller
 
         $carrierService = CarrierService::find($validated['carrier_service_id']);
         $recipientCountry = Country::where('code', $validated['recipient_country'])->first();
+
+        $barcode = $this->generateBarcode();
 
         $generator = new BarcodeGeneratorPNG();
         $barcodeImage = base64_encode($generator->getBarcode($barcode, $generator::TYPE_CODE_128));
@@ -49,7 +50,7 @@ class LabelController extends Controller
                 'country' => $recipientCountry->name,
             ],
             'carrier_service_name' => $carrierService->name,
-            'barcode' => $label->barcode,
+            'barcode' => $barcode,
             'barcode_image' => $barcodeImage,
         ];
 
@@ -62,10 +63,9 @@ class LabelController extends Controller
     {
         $lastLabel = Label::latest('id')->first();
 
-        $lastNumber = $lastLabel ? (int)substr($lastLabel->barcode, 2) : 0;
+        $lastNumber = $lastLabel ? $lastLabel->id : 0;
         $nextNumber = $lastNumber + 1;
 
-        // Format the barcode (MP + zero-padded 8-digit number)
         return 'MP' . str_pad($nextNumber, 8, '0', STR_PAD_LEFT);
     }
 }

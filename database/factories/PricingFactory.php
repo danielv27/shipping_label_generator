@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+
 use App\Models\CarrierService;
 use App\Models\Pricing;
 use Illuminate\Database\Eloquent\Factories\Factory;

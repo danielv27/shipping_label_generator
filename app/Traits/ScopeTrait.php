@@ -11,7 +11,7 @@ trait ScopeTrait
             $recipientCountry === $domesticCountry) {
             return 'domestic';
         }
-    
+
         return 'international';
     }
 }

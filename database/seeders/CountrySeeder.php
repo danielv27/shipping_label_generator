@@ -13,10 +13,12 @@ class CountrySeeder extends Seeder
         $csvData = array_map('str_getcsv', file($csvUrl));
 
         foreach ($csvData as $index => $row) {
-            if ($index === 0) continue;
+            if ($index === 0) {
+                continue;
+            }
             Country::updateOrCreate(
                 ['name' => $row[0]],
-                ['code' => $row[1]] 
+                ['code' => $row[1]]
             );
         }
     }

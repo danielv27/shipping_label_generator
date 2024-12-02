@@ -24,4 +24,3 @@ class Label extends Model
         return $this->belongsTo(CarrierService::class);
     }
 }
-

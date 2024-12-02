@@ -33,9 +33,9 @@ class PricingController extends Controller
             'sender_country_code' => 'required|exists:countries,code',
             'recipient_country_code' => 'required|exists:countries,code',
         ]);
-    
+
         $scope = $this->determineScope($validated['sender_country_code'], $validated['recipient_country_code']);
-    
+
         $pricing = Pricing::where('carrier_service_id', $validated['carrier_service_id'])
             ->where('scope', $scope)
             ->where('min_weight', '<=', $validated['weight'])
@@ -44,11 +44,11 @@ class PricingController extends Controller
                     ->orWhereNull('max_weight'); // max_weight is NULL for no upper bound
             })
             ->first();
-    
+
         if (!$pricing) {
             return response()->json(['error' => 'No pricing available for the provided criteria.'], 404);
         }
-    
+
         return response()->json(['price' => $pricing->price]);
     }
 }

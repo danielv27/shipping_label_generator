@@ -22,6 +22,8 @@ class LabelController extends Controller
             'carrier_service_id' => 'required|exists:carrier_services,id',
         ]);
 
+        $barcode = $this->generateBarcode();
+
         $label = Label::create([
             'recipient_name' => $validated['recipient_name'],
             'recipient_street' => $validated['recipient_street'],
@@ -33,8 +35,6 @@ class LabelController extends Controller
 
         $carrierService = CarrierService::find($validated['carrier_service_id']);
         $recipientCountry = Country::where('code', $validated['recipient_country'])->first();
-
-        $barcode = $this->generateBarcode();
 
         $generator = new BarcodeGeneratorPNG();
         $barcodeImage = base64_encode($generator->getBarcode($barcode, $generator::TYPE_CODE_128));
@@ -57,7 +57,7 @@ class LabelController extends Controller
     }
 
 
-    private function generateBarcode(): string
+    public function generateBarcode(): string
     {
         $lastLabel = Label::latest('id')->first();
 

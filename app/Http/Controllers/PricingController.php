@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Models\Pricing;
+use App\Traits\ScopeTrait;
 
 class PricingController extends Controller
 {
+    use ScopeTrait;
 
     public function show($carrierServiceId): JsonResponse
     {
@@ -48,17 +50,5 @@ class PricingController extends Controller
         }
     
         return response()->json(['price' => $pricing->price]);
-    }
-    
-    
-    public function determineScope(string $senderCountry, string $recipientCountry): string
-    {
-        $domesticCountry = 'NL';
-        if ($senderCountry === $domesticCountry &&
-            $recipientCountry === $domesticCountry) {
-            return 'domestic';
-        }
-    
-        return 'international';
     }
 }

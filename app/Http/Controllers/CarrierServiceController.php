@@ -5,20 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\CarrierService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Traits\ScopeTrait;
 
 class CarrierServiceController extends Controller
 {
-
-    public function determineScope(string $senderCountry, string $recipientCountry): string
-    {
-        $domesticCountry = 'NL';
-        if ($senderCountry === $domesticCountry &&
-            $recipientCountry === $domesticCountry) {
-            return 'domestic';
-        }
-    
-        return 'international';
-    }
+    use ScopeTrait;
 
     public function index(Request $request): JsonResponse
     {

@@ -22,8 +22,6 @@ class LabelController extends Controller
             'carrier_service_id' => 'required|exists:carrier_services,id',
         ]);
 
-        
-
         $label = Label::create([
             'recipient_name' => $validated['recipient_name'],
             'recipient_street' => $validated['recipient_street'],

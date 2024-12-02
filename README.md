@@ -98,6 +98,7 @@ The Server should be available at `http://127.0.0.1:8000`
 
 
 ## Testing
+Both feature and component testing was done using [Pest](https://pestphp.com). To run all tests: 
 ```bash
 php artisan test
 ```

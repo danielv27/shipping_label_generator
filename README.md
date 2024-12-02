@@ -1,6 +1,6 @@
 # Shipping Label Generator Backend
 
-This project serves as an API for a Shipping Label Generator application. It provides APIs to calculate shipping prices, manage carrier services and countries, and generate shipping labels as PDFs.
+This project serves as an API for a Shipping Label Generator application. The API can be used to calculate shipping prices, manage carrier services and countries, and generate shipping labels as PDFs.
 
 The frontend application that interacts with this API can be found [here](https://github.com/danielv27/shipping_label_generator_frontend)
 

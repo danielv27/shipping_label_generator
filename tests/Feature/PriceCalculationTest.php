@@ -2,6 +2,10 @@
 
 use App\Models\CarrierService;
 
+beforeEach(function () {
+    $this->seed();
+});
+
 test('validates required fields for price calculation', function () {
     $this->postJson(route('pricing.calculate'), [])
         ->assertStatus(422)
@@ -15,8 +19,6 @@ test('validates required fields for price calculation', function () {
 
 
 test('calculates correct prices for PostNL Parcel', function () {
-
-    $this->seed();
 
     $carrierServiceId = CarrierService::where('name', 'PostNL Parcel')->first()->id;
 
@@ -50,8 +52,6 @@ test('calculates correct prices for PostNL Parcel', function () {
 
 test('calculating international prices for PostNL Parcel does not exist', function () {
 
-    $this->seed();
-
     $carrierServiceId = CarrierService::where('name', 'PostNL Parcel')->first()->id;
 
     $this->postJson(route('pricing.calculate'), [
@@ -77,8 +77,6 @@ test('calculating international prices for PostNL Parcel does not exist', functi
 });
 
 test('calculates correct prices for DHL Express (domestic)', function () {
-
-    $this->seed();
 
     $carrierServiceId = CarrierService::where('name', 'DHL Express')->first()->id;
 
@@ -112,7 +110,6 @@ test('calculates correct prices for DHL Express (domestic)', function () {
 
 test('calculates correct prices for DHL Express (international)', function () {
 
-    $this->seed();
     $carrierServiceId = CarrierService::where('name', 'DHL Express')->first()->id;
 
     $this->postJson(route('pricing.calculate'), [
@@ -146,7 +143,6 @@ test('calculates correct prices for DHL Express (international)', function () {
 
 test('calculates correct prices for very large weights', function () {
 
-    $this->seed();
     $postNlId = CarrierService::where('name', 'PostNL Parcel')->first()->id;
     $dhlId = CarrierService::where('name', 'DHL Express')->first()->id;
 

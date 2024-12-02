@@ -15,4 +15,8 @@ class CarrierService extends Model
     {
         return $this->hasMany(Pricing::class);
     }
+    public function labels()
+    {
+        return $this->hasMany(Label::class);
+    }
 }

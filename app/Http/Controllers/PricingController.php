@@ -28,16 +28,19 @@ class PricingController extends Controller
         $validated = $request->validate([
             'carrier_service_id' => 'required|exists:carrier_services,id',
             'weight' => 'required|numeric|min:0',
-            'sender_country' => 'required|string',
-            'receiver_country' => 'required|string',
+            'sender_country_code' => 'required|exists:countries,code',
+            'receiver_country_code' => 'required|exists:countries,code',
         ]);
     
-        $scope = $this->determineScope($validated['sender_country'], $validated['receiver_country']);
+        $scope = $this->determineScope($validated['sender_country_code'], $validated['receiver_country_code']);
     
         $pricing = Pricing::where('carrier_service_id', $validated['carrier_service_id'])
             ->where('scope', $scope)
             ->where('min_weight', '<=', $validated['weight'])
-            ->where('max_weight', '>=', $validated['weight'])
+            ->where(function ($query) use ($validated) {
+                $query->where('max_weight', '>=', $validated['weight'])
+                    ->orWhereNull('max_weight'); // max_weight is NULL for no upper bound
+            })
             ->first();
     
         if (!$pricing) {
@@ -47,16 +50,15 @@ class PricingController extends Controller
         return response()->json(['price' => $pricing->price]);
     }
     
+    
     public function determineScope(string $senderCountry, string $receiverCountry): string
     {
-        $domesticCountry = 'Netherlands';
-        if (strtolower($senderCountry) === strtolower($domesticCountry) &&
-            strtolower($receiverCountry) === strtolower($domesticCountry)) {
+        $domesticCountry = 'NL';
+        if ($senderCountry === $domesticCountry &&
+            $receiverCountry === $domesticCountry) {
             return 'domestic';
         }
     
         return 'international';
     }
-    
-
 }

@@ -8,6 +8,18 @@ use Illuminate\Http\JsonResponse;
 
 class CarrierServiceController extends Controller
 {
+
+    public function determineScope(string $senderCountry, string $receiverCountry): string
+    {
+        $domesticCountry = 'NL';
+        if ($senderCountry === $domesticCountry &&
+            $receiverCountry === $domesticCountry) {
+            return 'domestic';
+        }
+    
+        return 'international';
+    }
+
     public function index(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -15,18 +27,10 @@ class CarrierServiceController extends Controller
             'destination_country_code' => 'required|string|exists:countries,code'
         ]);
 
-        $domesticCountryCode = 'NL';
-        $scope = ['international'];
-
-        if (
-            $validated['source_country_code'] == $domesticCountryCode
-            && $validated['destination_country_code'] == $domesticCountryCode
-        ) {
-            $scope = ['domestic', 'international'];
-        }
+        $scope = $this->determineScope($validated['source_country_code'], $validated['destination_country_code']);
 
         $carrierServices = CarrierService::whereHas('pricing', function ($query) use ($scope) {
-            $query->whereIn('scope', $scope);
+            $query->where('scope', $scope);
         })->get(['id', 'name']);
 
         return response()->json($carrierServices);

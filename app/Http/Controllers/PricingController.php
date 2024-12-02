@@ -29,7 +29,7 @@ class PricingController extends Controller
     {
         $validated = $request->validate([
             'carrier_service_id' => 'required|exists:carrier_services,id',
-            'weight' => 'required|numeric|min:0',
+            'weight' => 'required|numeric|gt:0',
             'sender_country_code' => 'required|exists:countries,code',
             'recipient_country_code' => 'required|exists:countries,code',
         ]);

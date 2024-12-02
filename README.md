@@ -93,7 +93,7 @@ The Server should be available at `http://127.0.0.1:8000`
   - `recipient_country` (required): The recipient's country code.
   - `carrier_service_id` (required): The ID of the selected carrier service.
 
-- **Response:** A downloadable PDF file containing the shipping label. Example:
+- **Response:** A PDF file containing the shipping label. Example:
   ![image](https://github.com/user-attachments/assets/9eb62f34-8ce1-491b-8fcd-51be2f5bdee6)
 
 

@@ -14,11 +14,11 @@ class CarrierServiceController extends Controller
     public function index(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'source_country_code' => 'required|string|exists:countries,code',
-            'destination_country_code' => 'required|string|exists:countries,code'
+            'sender_country_code' => 'required|string|exists:countries,code',
+            'recipient_country_code' => 'required|string|exists:countries,code'
         ]);
 
-        $scope = $this->determineScope($validated['source_country_code'], $validated['destination_country_code']);
+        $scope = $this->determineScope($validated['sender_country_code'], $validated['recipient_country_code']);
 
         $carrierServices = CarrierService::whereHas('pricing', function ($query) use ($scope) {
             $query->where('scope', $scope);

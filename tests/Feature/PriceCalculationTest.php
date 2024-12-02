@@ -1,97 +1,106 @@
 <?php
 
-use Database\Seeders\CarrierServiceSeeder;
+use App\Models\CarrierService;
 
 test('calculates correct prices for PostNL Parcel', function () {
 
     $this->seed();
 
+    $carrierServiceId = CarrierService::where('name', 'PostNL Parcel')->first()->id;
+
     $this->postJson(route('pricing.calculate'), [
-            'carrier_service_id' => 1, // PostNL Parcel
+            'carrier_service_id' => $carrierServiceId,
             'sender_country_code' => 'NL',
-            'receiver_country_code' => 'NL',
+            'recipient_country_code' => 'NL',
             'weight' => 0.5,
         ])
         ->assertStatus(200)
         ->assertJson(['price' => 1.99]);
 
     $this->postJson(route('pricing.calculate'), [
-            'carrier_service_id' => 1,
+            'carrier_service_id' => $carrierServiceId,
             'sender_country_code' => 'NL',
-            'receiver_country_code' => 'NL',
+            'recipient_country_code' => 'NL',
             'weight' => 5,
         ])
         ->assertStatus(200)
         ->assertJson(['price' => 5.99]);
 
     $this->postJson(route('pricing.calculate'), [
-            'carrier_service_id' => 1,
+            'carrier_service_id' => $carrierServiceId,
             'sender_country_code' => 'NL',
-            'receiver_country_code' => 'NL',
+            'recipient_country_code' => 'NL',
             'weight' => 12,
         ])
         ->assertStatus(200)
         ->assertJson(['price' => 10.99]);
 });
 
-test('calculates correct prices for DHL Express (Domestic)', function () {
-    $this->seed(CarrierServiceSeeder::class);
+test('calculates correct prices for DHL Express (domestic)', function () {
 
-    // Test weight within 0-1kg range
-    $response = $this->postJson(route('pricing.calculate'), [
-        'carrier_service_id' => 2, // DHL Express (Domestic)
-        'sender_country_code' => 'NL',
-        'receiver_country_code' => 'NL',
-        'weight' => 0.5,
-    ]);
-    $response->assertStatus(200)->assertJson(['price' => 3.99]);
+    $this->seed();
 
-    // Test weight within 1.01-10kg range
-    $response = $this->postJson(route('pricing.calculate'), [
-        'carrier_service_id' => 2,
-        'sender_country_code' => 'NL',
-        'receiver_country_code' => 'NL',
-        'weight' => 5,
-    ]);
-    $response->assertStatus(200)->assertJson(['price' => 8.99]);
+    $carrierServiceId = CarrierService::where('name', 'DHL Express')->first()->id;
 
-    // Test weight above 10kg
-    $response = $this->postJson(route('pricing.calculate'), [
-        'carrier_service_id' => 2,
-        'sender_country_code' => 'NL',
-        'receiver_country_code' => 'NL',
-        'weight' => 15,
-    ]);
-    $response->assertStatus(200)->assertJson(['price' => 32.99]);
+    $this->postJson(route('pricing.calculate'), [
+            'carrier_service_id' => $carrierServiceId,
+            'sender_country_code' => 'NL',
+            'recipient_country_code' => 'NL',
+            'weight' => 0.5,
+        ])
+        ->assertStatus(200)
+        ->assertJson(['price' => 3.99]);
+
+    $this->postJson(route('pricing.calculate'), [
+            'carrier_service_id' => $carrierServiceId,
+            'sender_country_code' => 'NL',
+            'recipient_country_code' => 'NL',
+            'weight' => 5,
+        ])
+        ->assertStatus(200)
+        ->assertJson(['price' => 8.99]);
+
+    $this->postJson(route('pricing.calculate'), [
+            'carrier_service_id' => $carrierServiceId,
+            'sender_country_code' => 'NL',
+            'recipient_country_code' => 'NL',
+            'weight' => 12,
+        ])
+        ->assertStatus(200)
+        ->assertJson(['price' => 32.99]);
 });
 
-test('calculates correct prices for DHL Express (International)', function () {
-    $this->seed(CarrierServiceSeeder::class);
+test('calculates correct prices for DHL Express (international)', function () {
 
-    // Test weight within 0-1kg range
-    $response = $this->postJson(route('pricing.calculate'), [
-        'carrier_service_id' => 3, // DHL Express (International)
-        'sender_country_code' => 'NL',
-        'receiver_country_code' => 'US',
-        'weight' => 0.8,
-    ]);
-    $response->assertStatus(200)->assertJson(['price' => 10.99]);
+    $this->seed();
 
-    // Test weight within 1.01-10kg range
-    $response = $this->postJson(route('pricing.calculate'), [
-        'carrier_service_id' => 3,
-        'sender_country_code' => 'NL',
-        'receiver_country_code' => 'US',
-        'weight' => 7,
-    ]);
-    $response->assertStatus(200)->assertJson(['price' => 30.99]);
+    $carrierServiceId = CarrierService::where('name', 'DHL Express')->first()->id;
 
-    // Test weight above 10kg
-    $response = $this->postJson(route('pricing.calculate'), [
-        'carrier_service_id' => 3,
-        'sender_country_code' => 'NL',
-        'receiver_country_code' => 'US',
-        'weight' => 15,
-    ]);
-    $response->assertStatus(200)->assertJson(['price' => 53.99]);
+    $this->postJson(route('pricing.calculate'), [
+            'carrier_service_id' => $carrierServiceId,
+            'sender_country_code' => 'NL',
+            'recipient_country_code' => 'DE',
+            'weight' => 0.5,
+        ])
+        ->assertStatus(200)
+        ->assertJson(['price' => 10.99]);
+
+    $this->postJson(route('pricing.calculate'), [
+            'carrier_service_id' => $carrierServiceId,
+            'sender_country_code' => 'NL',
+            'recipient_country_code' => 'DE',
+            'weight' => 5,
+        ])
+        ->assertStatus(200)
+        ->assertJson(['price' => 30.99]);
+
+    $this->postJson(route('pricing.calculate'), [
+            'carrier_service_id' => $carrierServiceId,
+            'sender_country_code' => 'NL',
+            'recipient_country_code' => 'DE',
+            'weight' => 12,
+        ])
+        ->assertStatus(200)
+        ->assertJson(['price' => 53.99]);
 });
+

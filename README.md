@@ -1,6 +1,7 @@
 # Shipping Label Generator Backend
 
-This project serves as the backend for a Shipping Label Generator application. It provides APIs to calculate shipping prices, manage carrier services and countries, and generate shipping labels as PDFs. The system ensures accuracy and dynamic handling of shipping data while adhering to modern development standards.
+This project serves as the backend for a Shipping Label Generator application. It provides APIs to calculate shipping prices, manage carrier services and countries, and generate shipping labels as PDFs.
+This project adheres to the PCR-12 compliance standard and incorpates both feature and unit tests.
 
 ## Installation
 
@@ -18,6 +19,8 @@ This project serves as the backend for a Shipping Label Generator application. I
     php artisan migrate --seed
     ```
 
+NOTE: To install the application I used [Laravel Herd](https://herd.laravel.com). To make sure it is exposed to the browser I placed it under `~/Herd/<directory-name>` (predefined path made by Herd).
+
 ## Running
 Start the server:
 ```bash
@@ -26,10 +29,10 @@ php artisan serve
 
 The Server should be available at `http://127.0.0.1:8000`
 
-NOTE: To install the application and gain access to it in the browser I used [Laravel Herd](https://herd.laravel.com). To make sure it is exposed to the browser I placed it under `~/Herd/<directory-name>`.
+
 
 ## Testing
 ```bash
-php artisan serve
+php artisan test
 ```
 

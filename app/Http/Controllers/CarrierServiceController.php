@@ -9,11 +9,11 @@ use Illuminate\Http\JsonResponse;
 class CarrierServiceController extends Controller
 {
 
-    public function determineScope(string $senderCountry, string $receiverCountry): string
+    public function determineScope(string $senderCountry, string $recipientCountry): string
     {
         $domesticCountry = 'NL';
         if ($senderCountry === $domesticCountry &&
-            $receiverCountry === $domesticCountry) {
+            $recipientCountry === $domesticCountry) {
             return 'domestic';
         }
     

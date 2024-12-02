@@ -29,10 +29,10 @@ class PricingController extends Controller
             'carrier_service_id' => 'required|exists:carrier_services,id',
             'weight' => 'required|numeric|min:0',
             'sender_country_code' => 'required|exists:countries,code',
-            'receiver_country_code' => 'required|exists:countries,code',
+            'recipient_country_code' => 'required|exists:countries,code',
         ]);
     
-        $scope = $this->determineScope($validated['sender_country_code'], $validated['receiver_country_code']);
+        $scope = $this->determineScope($validated['sender_country_code'], $validated['recipient_country_code']);
     
         $pricing = Pricing::where('carrier_service_id', $validated['carrier_service_id'])
             ->where('scope', $scope)
@@ -51,11 +51,11 @@ class PricingController extends Controller
     }
     
     
-    public function determineScope(string $senderCountry, string $receiverCountry): string
+    public function determineScope(string $senderCountry, string $recipientCountry): string
     {
         $domesticCountry = 'NL';
         if ($senderCountry === $domesticCountry &&
-            $receiverCountry === $domesticCountry) {
+            $recipientCountry === $domesticCountry) {
             return 'domestic';
         }
     

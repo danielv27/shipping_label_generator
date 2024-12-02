@@ -11,7 +11,6 @@ Route::get('countries', fn () => response()->json(Country::all(['name', 'code'])
 
 Route::get('carrier-services', [CarrierServiceController::class, 'index'])->name('carrier-services.index');
 
-Route::get('pricing/{carrierServiceId}', [PricingController::class, 'show'])->name('pricing.show');
 Route::post('pricing/calculate', [PricingController::class, 'calculate'])->name('pricing.calculate');
 
 Route::post('label/generate', [LabelController::class, 'generate'])->name('label.generate');

@@ -11,20 +11,6 @@ class PricingController extends Controller
 {
     use ScopeTrait;
 
-    public function show($carrierServiceId): JsonResponse
-    {
-        // Retrieve pricing entries for the given carrier service ID
-        $pricing = Pricing::where('carrier_service_id', $carrierServiceId)->get();
-
-        // Check if pricing exists
-        if ($pricing->isEmpty()) {
-            return response()->json(['error' => 'No pricing found for the specified carrier service.'], 404);
-        }
-
-        // Return the pricing data
-        return response()->json($pricing);
-    }
-
     public function calculate(Request $request)
     {
         $validated = $request->validate([

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Label;
 use App\Models\CarrierService;
+use App\Models\Country;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 
@@ -17,7 +18,7 @@ class LabelController extends Controller
             'recipient_street' => 'required|string',
             'recipient_postal_code' => 'required|string',
             'recipient_city' => 'required|string',
-            'recipient_country' => 'required|string',
+            'recipient_country' => 'required|exists:countries,code',
             'carrier_service_id' => 'required|exists:carrier_services,id',
         ]);
 
@@ -34,6 +35,8 @@ class LabelController extends Controller
         ]);
 
         $carrierService = CarrierService::find($validated['carrier_service_id']);
+        $recipientCountry = Country::where('code', $validated['recipient_country'])->first();
+
         $generator = new BarcodeGeneratorPNG();
         $barcodeImage = base64_encode($generator->getBarcode($barcode, $generator::TYPE_CODE_128));
 
@@ -43,7 +46,7 @@ class LabelController extends Controller
                 'street' => $label->recipient_street,
                 'postal_code' => $label->recipient_postal_code,
                 'city' => $label->recipient_city,
-                'country' => $label->recipient_country,
+                'country' => $recipientCountry->name,
             ],
             'carrier_service_name' => $carrierService->name,
             'barcode' => $label->barcode,
